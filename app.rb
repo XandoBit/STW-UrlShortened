@@ -33,11 +33,17 @@ enable :sessions
 set :session_secret, '*&(^#234a)'
 
 get '/' do
-  %Q|<a href='/auth/google_oauth2'>Sign in with Google</a>|
-  #puts "inside get '/': #{params}"
-  #@list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20)
+  haml :oauth
+  #redirect '/index'
+end
+
+get '/auth/:name/callback' do
+  #@auth = request.env['omniauth.auth']
+  #@email = #{@auth['info'].email}
+  puts "inside get '/': #{params}"
+  @list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20)
   # in SQL => SELECT * FROM "ShortenedUrl" ORDER BY "id" ASC
-  #haml :index
+  haml :index
 end
 
 get '/edit/:id' do |id|
@@ -51,18 +57,20 @@ put '/url/:id' do |id|
   success = content.update!(params[:content])
   
   if success
-    redirect "/"# "/articles/#{id}"
+    redirect "/auth/:name/callback"# "/articles/#{id}"
   else
     #redirect "/articles/#{id}/edit"
   end
 end
 
-post '/' do
+post '/auth/:name/callback' do
+  #@auth = request.env['omniauth.auth']
+  #@email = "#{@auth['info'].email}"
   puts "inside post '/': #{params}"
   uri = URI::parse(params[:url])
   if uri.is_a? URI::HTTP or uri.is_a? URI::HTTPS then
     begin
-      @short_url = ShortenedUrl.first_or_create(:url => params[:url])
+      @short_url = ShortenedUrl.first_or_create(:url => params[:url])#, :email => "#{@auth['info'].email}")
     rescue Exception => e
       puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
       pp @short_url
@@ -71,13 +79,13 @@ post '/' do
   else
     logger.info "Error! <#{params[:url]}> is not a valid URL"
   end
-  redirect '/'
+  redirect '/auth/:name/callback'
 end
 
 delete '/:id' do |id|
   content = ShortenedUrl.get!(id)
   content.destroy!
-  redirect "/"
+  redirect "/auth/:name/callback"
 end
 
 get '/:shortened' do
@@ -90,6 +98,15 @@ get '/:shortened' do
   # is no longer at the original location. The two most commonly used
   # redirection status codes are 301 Move Permanently and 302 Found.
   redirect short_url.url, 301
+end
+
+get '/auth/failure' do
+  redirect '/'
+end
+
+get '/logout' do
+  session.clear
+  #redirect '/'
 end
 
 error do haml :index end

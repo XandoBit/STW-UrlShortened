@@ -3,5 +3,6 @@ class ShortenedUrl
 
   property :id, Serial
   property :url, Text
+  property :email, Text
 end
 
