@@ -2,6 +2,8 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader' if development?
+require 'omniauth-oauth2'
+require 'omniauth-google-oauth2'
 require 'haml'
 require 'uri'
 require 'pp'
@@ -22,11 +24,20 @@ DataMapper.auto_upgrade!
 
 Base = 36
 
+use OmniAuth::Builder do
+  config = YAML.load_file 'config/config.yml'
+  provider :google_oauth2, config['identifier'], config['secret']
+end
+
+enable :sessions
+set :session_secret, '*&(^#234a)'
+
 get '/' do
-  puts "inside get '/': #{params}"
-  @list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20)
+  %Q|<a href='/auth/google_oauth2'>Sign in with Google</a>|
+  #puts "inside get '/': #{params}"
+  #@list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20)
   # in SQL => SELECT * FROM "ShortenedUrl" ORDER BY "id" ASC
-  haml :index
+  #haml :index
 end
 
 get '/edit/:id' do |id|
