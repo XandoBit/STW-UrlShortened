@@ -29,6 +29,23 @@ get '/' do
   haml :index
 end
 
+get '/edit/:id' do |id|
+  @content = ShortenedUrl.get!(id) #.first(:id => params[:id].to_i(Base))
+  #erb :'show'
+  erb :'edit'
+end
+
+put '/url/:id' do |id|
+  content = ShortenedUrl.get!(id)
+  success = content.update!(params[:content])
+  
+  if success
+    redirect "/"# "/articles/#{id}"
+  else
+    #redirect "/articles/#{id}/edit"
+  end
+end
+
 post '/' do
   puts "inside post '/': #{params}"
   uri = URI::parse(params[:url])
@@ -44,6 +61,12 @@ post '/' do
     logger.info "Error! <#{params[:url]}> is not a valid URL"
   end
   redirect '/'
+end
+
+delete '/:id' do |id|
+  content = ShortenedUrl.get!(id)
+  content.destroy!
+  redirect "/"
 end
 
 get '/:shortened' do

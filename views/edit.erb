@@ -1,0 +1,15 @@
+<p><%=@content.url%></p>
+
+<form action="/url/<%= @content.id%>" method="post">
+			<input name="_method" type="hidden" value="put" />
+            <input type="text" name="content[url]" id="myurl" autofocus size=100 accesskey="s"/>
+            <input type="submit" value="Update Url"/>
+</form>
+<!--
+form(action="/url/:id" method="POST")
+            %label(for="url")
+            %input(type="text" name="@content[url]" value="put" id="myurl" autofocus size=100 accesskey="s")
+            %input(type="submit" value="Update Url")
+
+            <label(for="url")></label>
+-->
