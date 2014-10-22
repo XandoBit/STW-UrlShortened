@@ -3,6 +3,6 @@ class ShortenedUrl
 
   property :id, Serial
   property :url, Text
-property 
+  property :opc_url, Text
 end
 
