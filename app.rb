@@ -49,13 +49,17 @@ end
 get '/:shortened' do
   puts "inside get '/:shortened': #{params}"
   short_url = ShortenedUrl.first(:id => params[:shortened].to_i(Base))
-
+  short_opc_url = ShortenedUrl.first(:opc_url => params[:shortened])
+if short_opc_url #Si tiene información, entonces devolvera por opc_ulr
+    redirect short_opc_url.url, 301
+  else
   # HTTP status codes that start with 3 (such as 301, 302) tell the
   # browser to go look for that resource in another location. This is
   # used in the case where a web page has moved to another location or
   # is no longer at the original location. The two most commonly used
   # redirection status codes are 301 Move Permanently and 302 Found.
   redirect short_url.url, 301
+end
 end
 
 error do haml :index end
