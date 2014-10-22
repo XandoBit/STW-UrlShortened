@@ -38,8 +38,8 @@ get '/' do
 end
 
 get '/auth/:name/callback' do
-  #@auth = request.env['omniauth.auth']
-  #@email = #{@auth['info'].email}
+  @auth = request.env['omniauth.auth']
+  $email = #{@auth[:info].email}
   puts "inside get '/': #{params}"
   @list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20)
   # in SQL => SELECT * FROM "ShortenedUrl" ORDER BY "id" ASC
@@ -64,13 +64,11 @@ put '/url/:id' do |id|
 end
 
 post '/auth/:name/callback' do
-  #@auth = request.env['omniauth.auth']
-  #@email = "#{@auth['info'].email}"
   puts "inside post '/': #{params}"
   uri = URI::parse(params[:url])
   if uri.is_a? URI::HTTP or uri.is_a? URI::HTTPS then
     begin
-      @short_url = ShortenedUrl.first_or_create(:url => params[:url])#, :email => "#{@auth['info'].email}")
+      @short_url = ShortenedUrl.first_or_create(:url => params[:url])#, :email => $email)
     rescue Exception => e
       puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
       pp @short_url
@@ -88,7 +86,7 @@ delete '/:id' do |id|
   redirect "/auth/:name/callback"
 end
 
-get '/:shortened' do
+get '/auth/:name/callback/:shortened' do
   puts "inside get '/:shortened': #{params}"
   short_url = ShortenedUrl.first(:id => params[:shortened].to_i(Base))
 

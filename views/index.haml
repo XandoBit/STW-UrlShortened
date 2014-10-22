@@ -1,5 +1,5 @@
 %a{:href=>"/logout"}Salir
-/%p #{@auth['info'].email}
+%p #{@auth[:info].email}
 %form(action="/auth/:name/callback" method="POST")
 	%label(for="url")
 	%input(type="text" name="url" id="myurl" autofocus size=100 accesskey="s")
