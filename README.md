@@ -1,7 +1,6 @@
 > # Sistemas y Tecnologías Web 2014-2015
 
-![]http://cdn.searchenginejournal.com/wp-content/uploads/2013/09/google-panda-penguin.jpg
-
+![]http://messenger.com.es/wp-content/uploads/2011/05/google_.jpg
 ## Práctica 4 - STW-UrlShortener
 ================
 
