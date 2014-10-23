@@ -40,7 +40,7 @@ end
 
 get '/auth/:name/callback' do
   @auth = request.env['omniauth.auth']
-  pp @auth
+#  pp @auth
   $email = @auth['info'].email
   puts "inside get '/': #{params}"
   @list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20, :email=>$email)
@@ -94,7 +94,7 @@ delete '/:id' do |id|
   redirect "/auth/:name/callback"
 end
 
-get '/auth/:name/callback/:shortened' do
+get '/:shortened' do
   puts "inside get '/:shortened': #{params}"
   short_url = ShortenedUrl.first(:id => params[:shortened].to_i(Base))
   short_opc_url = ShortenedUrl.first(:opc_url => params[:shortened])
@@ -116,7 +116,7 @@ end
 
 get '/logout' do
   session.clear
-  #redirect '/'
+  redirect 'https://accounts.google.com/Logout'
 end
 
 error do haml :index end
