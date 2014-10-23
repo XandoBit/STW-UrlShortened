@@ -11,8 +11,37 @@ El objetivo de esta práctica es implementar una aplicación web, para acortar U
 - - - - - - -
 #### Estructura de la aplicación
 ```
-
-
+├── app.rb
+├── config
+│   ├── config_temaplate.yml
+├── config.ru
+├── Gemfile
+├── Gemfile.lock
+├── model.rb
+├── Procfile
+├── public
+│   ├── css
+│   │   ├── bootstrap.css
+│   │   ├── bootstrap.min.css
+│   │   ├── estilo.css
+│   │   └── landing-page.css
+│   ├── images
+│   │   ├── bg.jpg
+│   │   ├── google.png
+│   │   └── logo.png
+│   └── js
+│       ├── bootstrap.js
+│       └── bootstrap.min.js
+├── Rakefile
+├── README.md
+├── test
+│   └── test.rb
+└── views
+    ├── edit.haml
+    ├── index.haml
+    ├── layout.haml
+    ├── oauth.haml
+    └── show.erb
 
 ```
 
@@ -28,7 +57,7 @@ El repositorio está divido en varias ramas, para facilitar el desarrollo de la 
 
 - *Production*, es la rama con el código que está puesto en producción en [Heroku](http://stark-tundra-2594.herokuapp.com/).
 
-- *gh-pages* contiene la documentación online de la aplicación. [Gh-Pages](http://alu0100537017.github.io/STW_Practica2_TestingSinatra/).
+- En Proceso ... (*gh-pages* contiene la documentación online de la aplicación. [Gh-Pages](http://alu0100537017.github.io/STW_Practica2_TestingSinatra/).)
 
 #### Modo de empleo **manual**
 
@@ -45,10 +74,10 @@ Una vez descargada la aplicación
 
 ###Autores
 
-- Vïctor Juidías Rodríguez - alu0100537017
+- Víctor Juidías Rodríguez - alu0100537017
 - Débora Martín-Pinillos Brito- alu0100537154
 
-See
+Para más información
 
 * [DataMapper](http://datamapper.org/getting-started.html)
 * [Haml](http://haml.info/)
