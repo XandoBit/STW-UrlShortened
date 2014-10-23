@@ -1,6 +1,6 @@
 <p><%=@content.url%></p>
 
-<form action="/url/<%= @content.id%>" method="post">
+<form action="/edit/url/<%= @content.id%>" method="post">
 			<input name="_method" type="hidden" value="put" />
             <input type="text" name="content[url]" id="myurl" autofocus size=100 accesskey="s"/>
             <input type="submit" value="Update Url"/>

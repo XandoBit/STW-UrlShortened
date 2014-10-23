@@ -1,0 +1,29 @@
+
+.panel {
+    background: rgba(46, 51, 56, 0.2)!important;
+    margin-top: 2.5em;
+    margin-bottom: 3.5em;    
+    border-right: 15em;
+    border-left: 50%;
+}
+
+.fondo {
+    position: relative;
+    padding-top: 5%;
+    padding-bottom: 50%;
+    padding-left: 5em;
+    padding-right: 5em;
+    margin-right: 10em;
+    margin-left: 10em;
+}
+
+.formulario{
+  margin-top:2em;
+  margin-bottom:2em;
+}
+
+.boton{
+    margin-top: 1em;
+    margin-bottom: 2em;   
+}
+

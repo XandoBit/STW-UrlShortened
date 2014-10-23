@@ -54,7 +54,7 @@ get '/edit/:id' do |id|
   erb :'edit'
 end
 
-put '/url/:id' do |id|
+put '/edit/url/:id' do |id|
   content = ShortenedUrl.get!(id)
   success = content.update!(params[:content])
   
@@ -116,7 +116,7 @@ end
 
 get '/logout' do
   session.clear
-  redirect 'https://accounts.google.com/Logout'
+  redirect 'https://accounts.google.com/Logout' + to('/')
 end
 
 error do haml :index end
