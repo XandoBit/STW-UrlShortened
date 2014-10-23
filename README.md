@@ -1,6 +1,6 @@
 > # Sistemas y Tecnologías Web 2014-2015
 
-![](http://messenger.com.es/wp-content/uploads/2011/05/google_.jpg)
+![](http://cdn.them.pro/files/images/url.preview.jpg)
 ## Práctica 4 - STW-UrlShortener
 ================
 
