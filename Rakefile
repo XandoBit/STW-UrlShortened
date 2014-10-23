@@ -3,9 +3,19 @@ task :default do
   sh "ruby app.rb"
 end
 
+desc "Testing"
+task :test do
+  sh "ruby ./test/test.rb"
+end
+
 desc "run the server via rackup"
 task :rackup do
   sh "rackup"
+end
+
+desc "Instalar gemas"
+task :install do
+  sh "bundle install"
 end
 
 # substitute XXX for the name of your app
@@ -25,8 +35,8 @@ task :deploy  do
   sh "heroku ps"
 end
 
-desc "logs"
-task :logs  do
+desc "heroku logs"
+task :heroku_logs  do
   sh "heroku logs"
 end
 
