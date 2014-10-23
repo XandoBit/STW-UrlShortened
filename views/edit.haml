@@ -1,0 +1,14 @@
+.fondo
+	.row
+		.titulo.text-center
+			%h2=@content.url
+		.col-md-8.col-md-offset-2
+			%form{:action => "/edit/url/#{@content.id}", :method =>"post"}
+				%input{:name =>"_method", :type => "hidden", :value=>"put" }
+				%div.input-group
+					%input.form-control{:type=>"text", :name=>"new_url", :id=>"myurl", :autofocus=>"", :size=>"100", :accesskey=>"s", :placeholder => "http://..."}
+					%span.input-group-btn
+						%button.btn.btn-md.btn-success{:type=>"submit", :value=>"Submit"}Editar
+				%input.form-control.input.formulario2{:name=>"new_opc_url", :type=>"text", :placeholder => "/Opcional"}
+				
+				

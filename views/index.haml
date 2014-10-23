@@ -1,21 +1,52 @@
-%a{:href=>"/logout"}Salir
-%form(action="/auth/:name/callback" method="POST")
-	%label(for="url")
-	%input(type="text" name="url" id="myurl" autofocus size=100 accesskey="s")
-	%input(name="opc_url" type="text")
-	%input(type="submit" value="Shorten")
-%ol
-	- @list.each do |url|
-		%li
-			#{url.url} 
-			#{url.email}
-			/%a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)}), :target=>"_blank"} #{url.url} << #{url.opc_url} >>
-			- if (url.opc_url) then
-				%a{:href=>"/#{url.opc_url}", :target=>"_blank"} #{url.opc_url.to_s}
-			- else
-				%a{:href=>"/#{url.id.to_s(Base)}", :target=>"_blank"} (#{url.id.to_s(Base)})
-				/%a{:href=>"/#{url.opc_url}", :target=>"_blank"} #{url.opc_url.to_s}
-			%a{:href=>"/edit/#{url.id}"}Edit
-			%form(action="/#{url.id}" method="POST")
-				%input(type="hidden" name="_method" value="delete")
-				%input(type="submit" value="Delete")
+
+- if (session[:email] == nil) then
+	.row
+		.col-md-8.col-md-offset-2.imagen
+			/.intro-divider
+			%a{:href=>'/auth/google_oauth2'}
+				%img{:src => "/images/google.png", :width => "60", :height => "60"}
+.fondo	
+	.titulo.col-md-6.col-md-offset-3
+		%h2 Acortador de Urls
+	.row
+		.col-md-8.col-md-offset-2
+			%form{:action=>"/", :method=>"POST"}
+				%div.input-group
+					%input.form-control{:type=>"text", :name=>"url", :id=>"myurl", :autofocus=>"", :size=>"100", :accesskey=>"s", :placeholder => "http://..."}
+					%span.input-group-btn
+						%button.btn.btn-md.btn-primary{:type=>"submit", :value=>"Submit"}Acortar
+				%input.form-control.input.formulario2{:name=>"opc_url", :type=>"text", :placeholder => "/Opcional"}
+				
+	.row
+		.col-md-8.col-md-offset-2
+			%table.table.table-hover.table-condensed.text
+				%thead.cabecera
+					%tr.success
+						%th.text-center Url
+						%th.text-center Acortada
+						%th.text-center Editar
+						%th.text-center Borrar
+				%tbody
+				- @list.each do |url|
+					%tr
+						%td= url.url
+						/#{url.email}
+						/%a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)}), :target=>"_blank"} #{url.url} << #{url.opc_url} >>
+						- if (url.opc_url) then
+							%td
+								%a{:href=>"/auth/google_oauth2/#{url.opc_url}", :target=>"_blank"} /#{url.opc_url.to_s}
+						- else
+							%td
+								%a{:href=>"/auth/google_oauth2/#{url.id.to_s(Base)}", :target=>"_blank"} /#{url.id.to_s(Base)}
+							/%a{:href=>"/#{url.opc_url}", :target=>"_blank"} #{url.opc_url.to_s}
+						%td
+							/%a{:href=>"/edit/#{url.id}"}Edit
+							%form{:action => "/edit/#{url.id}"}
+								%button.btn.btn-md.btn-info{:type => "submit"}Editar
+						%td
+							%form{:action => "/#{url.id}", :method => "POST"}
+								%input{:type => "hidden", :name => "_method", :value => "delete"}
+								%button.btn.btn-md.btn-danger{:type => "submit", :value => ""}Borrar
+			%br
+			%form{:action => "/logout"}
+				%button.btn.btn-md.btn-danger{:type => "submit"}Cerrar Sesion

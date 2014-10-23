@@ -1,6 +1,6 @@
 
 .panel {
-    background: rgba(46, 51, 56, 0.2)!important;
+    background-color: rgba(255, 255, 255, 0.6);
     margin-top: 2.5em;
     margin-bottom: 3.5em;    
     border-right: 15em;
@@ -10,16 +10,21 @@
 .fondo {
     position: relative;
     padding-top: 5%;
-    padding-bottom: 50%;
+    padding-bottom: 20%;
     padding-left: 5em;
     padding-right: 5em;
     margin-right: 10em;
     margin-left: 10em;
 }
 
-.formulario{
+.formulario1{
   margin-top:2em;
-  margin-bottom:2em;
+}
+
+.formulario2{
+  margin-top:1em;
+  margin-bottom:6em;
+  max-width: 20em;
 }
 
 .boton{
@@ -27,3 +32,29 @@
     margin-bottom: 2em;   
 }
 
+.text{
+    color: #707070;
+    font-family: helvetica;
+}
+
+.cabecera {
+    color: DimGray;
+    font-family: helvetica;
+    font-size: large;
+}
+
+.space{
+    margin-right: 2em;
+    margin-left: 2em;
+}
+.titulo{
+    color: DimGray;
+    font-family: helvetica;
+    font-style: normal;
+    
+    margin-bottom: 3em;
+}
+
+.imagen{
+    margin-top: 3em;
+}

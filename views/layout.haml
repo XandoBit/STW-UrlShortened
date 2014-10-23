@@ -1,5 +1,18 @@
 !!!
 %html
-    %body
-        =yield
+	%head
+		%title SYTW URLS
+		%meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}/
+		%link{:href => "/css/bootstrap.min.css", :rel => "stylesheet"}/
+		%link{:href => "/css/bootstrap.css", :rel => "stylesheet"}/
+		%link{:href => "/css/estilo.css", :rel => "stylesheet"}/
+		%link{:href => "/css/landing-page.css", :rel => "stylesheet"}/
+		%link{:href => "images/logo.png", :rel => "shortcut icon"}/
+		%script{:src => "//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"}
+		%script{:src => "/js/bootstrap.min.js"}
+		
+	%body
+		.intro-header
+			.container.panel
+				=yield
 

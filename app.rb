@@ -34,14 +34,20 @@ enable :sessions
 set :session_secret, '*&(^#234a)'
 
 get '/' do
-  haml :oauth
+  #if (session[:email].to_s != '') then
+  #  @list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20, :email=>$email)
+  #  haml :index
+  #else
+   # haml :oauth
+  #end
   #redirect '/index'
+  @list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20, :email=>$email)
+  haml :index
 end
 
 get '/auth/:name/callback' do
-  @auth = request.env['omniauth.auth']
-#  pp @auth
-  $email = @auth['info'].email
+  auth = request.env['omniauth.auth']
+  $email = auth['info'].email
   puts "inside get '/': #{params}"
   @list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20, :email=>$email)
   # in SQL => SELECT * FROM "ShortenedUrl" ORDER BY "id" ASC
@@ -51,21 +57,30 @@ end
 get '/edit/:id' do |id|
   @content = ShortenedUrl.get!(id) #.first(:id => params[:id].to_i(Base))
   #erb :'show'
-  erb :'edit'
+  haml :'edit'
 end
 
 put '/edit/url/:id' do |id|
   content = ShortenedUrl.get!(id)
-  success = content.update!(params[:content])
+  if (params[:new_url] != "") then
+    uri = URI::parse(params[:new_url])
+    if uri.is_a? URI::HTTP or uri.is_a? URI::HTTPS then
+      success = content.update!(:url => params[:new_url])
+    end
+  end
+  if (params[:new_opc_url] != "") then
+    success = content.update!(:opc_url => params[:new_opc_url])
+  end
+  #success = content.update!(params[])
   
   if success
-    redirect "/auth/:name/callback"# "/articles/#{id}"
+    redirect "/"# "/articles/#{id}"
   else
-    #redirect "/articles/#{id}/edit"
+    redirect "/edit/#{content.id}"
   end
 end
 
-post '/auth/:name/callback' do
+post '/' do
   puts "inside post '/': #{params}"
   uri = URI::parse(params[:url])
   if uri.is_a? URI::HTTP or uri.is_a? URI::HTTPS then
@@ -85,16 +100,16 @@ post '/auth/:name/callback' do
   else
     logger.info "Error! <#{params[:url]}> is not a valid URL"
   end
-  redirect '/auth/:name/callback'
+  redirect '/'
 end
 
 delete '/:id' do |id|
   content = ShortenedUrl.get!(id)
   content.destroy!
-  redirect "/auth/:name/callback"
+  redirect "/"
 end
 
-get '/:shortened' do
+get '/auth/google_oauth2/:shortened' do
   puts "inside get '/:shortened': #{params}"
   short_url = ShortenedUrl.first(:id => params[:shortened].to_i(Base))
   short_opc_url = ShortenedUrl.first(:opc_url => params[:shortened])
@@ -116,7 +131,7 @@ end
 
 get '/logout' do
   session.clear
-  redirect 'https://accounts.google.com/Logout' + to('/')
+  redirect 'https://accounts.google.com/Logout'
 end
 
 error do haml :index end
