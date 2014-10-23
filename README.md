@@ -1,9 +1,52 @@
-Práctica 4: 
-STW-UrlShortener
+> # Sistemas y Tecnologías Web 2014-2015
+
+![](http://cdn.them.pro/files/images/url.preview.jpg)
+## Práctica 4 - STW-UrlShortener
 ================
 
-Práctica 4,  de la asignatura de Sistemas y tecnologías Web, en la que se implementa una pequeña aplicación web para acortar url.
+### Objetivo
 
+El objetivo de esta práctica es implementar una aplicación web, para acortar URL. Si el usuario está autenticado se guardaran todas sus URL's en una base de datos, y tendrá la opción de poder verlas. Esta aplicación la pondremos en la plataforma de [Heroku](https://www.heroku.com/).
+
+- - - - - - -
+#### Estructura de la aplicación
+```
+
+
+
+```
+
+- - -
+- - -
+#### Ramas
+
+El repositorio está divido en varias ramas, para facilitar el desarrollo de la aplicación:
+
+- *Master* es la rama principal de la aplicación, donde está todo el código de la aplicación de la última versión. Vendría a ser nuestra rama *release*.
+
+- *Development* se usa para desarrollar nuevas funcionalidades para la aplicación, es decir versión inestable, sin necesidad de tocar el código que hay en master, para que dicho código permanezca sin cambios hasta que éstos sean definitivos.
+
+- *Production*, es la rama con el código que está puesto en producción en [Heroku](http://stark-tundra-2594.herokuapp.com/).
+
+- *gh-pages* contiene la documentación online de la aplicación. [Gh-Pages](http://alu0100537017.github.io/STW_Practica2_TestingSinatra/).
+
+#### Modo de empleo **manual**
+
+Si se desea se puede descargar desde la rama master la aplicación para probarla en local, verla o modificarla al gusto de cada uno. Solo tiene que hacer:
+
+`$ git clone https://github.com/alu0100537017/STW-UrlShortened.git
+
+Una vez descargada la aplicación
+
+- Haremos un `$ rake install` o un  `$ bundle install`, como se prefiera, para que instale las gemas de las que depende la aplicación para funcionar.
+- Para correr la aplicación `$ ruby app.rb`
+- Iremos al puerto **localhost:4567** en nuestro navegador y ya podremos interactuar con la aplicación.
+- Para ejecutar los test tendremos que poner rake test.
+
+###Autores
+
+- Vïctor Juidías Rodríguez - alu0100537017
+- Débora Martín-Pinillos Brito- alu0100537154
 
 See
 

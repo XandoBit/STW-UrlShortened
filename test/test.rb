@@ -19,10 +19,14 @@ describe "Tests de la pagina raiz ('/') con metodo get" do
         get '/'
         assert last_response.ok?
     end
-
     it "Existe un formulario para las Urls" do
 	get '/auth/:name/callback'
 	assert last_response.body.include?
     end
 
+    it "El titulo deberia de ser" do
+        get '/'
+        assert_match "<title>Acortador de URLS</title>", last_response.body
+    end
 end
+
