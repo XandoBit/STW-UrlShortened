@@ -74,7 +74,7 @@ post '/auth/:name/callback' do
       if params[:opc_url] == ""
         @short_url = ShortenedUrl.first_or_create(:url => params[:url], :opc_url => params[:opc_url], :email => $email)
       else
-        @short_opc_url = ShortenedUrl.first_or_create(:url => params[:url], :email => $email)
+        @short_opc_url = ShortenedUrl.first_or_create(:url => params[:url],  :opc_url => params[:opc_url], :email => $email)
       end
 #     @short_url = ShortenedUrl.first_or_create(:url => params[:url], :email => $email)
      rescue Exception => e
