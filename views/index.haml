@@ -1,4 +1,16 @@
+%a{:href=>"/logout"}Salir
+%form(action="/auth/:name/callback" method="POST")
+	%label(for="url")
+	%input(type="text" name="url" id="myurl" autofocus size=100 accesskey="s")
+	%input(name="opc_url" type="text")
+	%input(type="submit" value="Shorten")
 %ol
-  - @list.each do |url|
-    %li
-      %a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)}) , :target=>"_blank"} #{url.url} << #{url.opc_url} >>
+	- @list.each do |url|
+		%li
+			#{url.url} 
+			#{url.email}
+			%a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)})
+			%a{:href=>"/edit/#{url.id}"}Edit
+			%form(action="/#{url.id}" method="POST")
+				%input(type="hidden" name="_method" value="delete")
+				%input(type="submit" value="Delete")
