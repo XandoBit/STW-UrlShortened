@@ -23,6 +23,7 @@ DataMapper.finalize
 DataMapper.auto_upgrade!
 
 Base = 36
+#$email=""
 
 use OmniAuth::Builder do
   config = YAML.load_file 'config/config.yml'
@@ -39,9 +40,10 @@ end
 
 get '/auth/:name/callback' do
   @auth = request.env['omniauth.auth']
-  $email = #{@auth[:info].email}
+  pp @auth
+  $email = @auth['info'].email
   puts "inside get '/': #{params}"
-  @list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20)
+  @list = ShortenedUrl.all(:order => [ :id.asc ], :limit => 20, :email=>$email)
   # in SQL => SELECT * FROM "ShortenedUrl" ORDER BY "id" ASC
   haml :index
 end
@@ -68,7 +70,7 @@ post '/auth/:name/callback' do
   uri = URI::parse(params[:url])
   if uri.is_a? URI::HTTP or uri.is_a? URI::HTTPS then
     begin
-      @short_url = ShortenedUrl.first_or_create(:url => params[:url])#, :email => $email)
+      @short_url = ShortenedUrl.first_or_create(:url => params[:url], :email => $email)
     rescue Exception => e
       puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
       pp @short_url

@@ -1,5 +1,5 @@
 %a{:href=>"/logout"}Salir
-%p #{@auth[:info].email}
+/%p #{@auth[:info].email}
 %form(action="/auth/:name/callback" method="POST")
 	%label(for="url")
 	%input(type="text" name="url" id="myurl" autofocus size=100 accesskey="s")
@@ -8,6 +8,7 @@
 	- @list.each do |url|
 		%li 
 			#{url.url} 
+			#{url.email}
 			%a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)})
 			%a{:href=>"/edit/#{url.id}"}Edit
 			%form(action="/#{url.id}" method="POST")
