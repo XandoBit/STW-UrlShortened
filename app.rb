@@ -34,7 +34,12 @@ post '/' do
   uri = URI::parse(params[:url])
   if uri.is_a? URI::HTTP or uri.is_a? URI::HTTPS then
     begin
-      @short_url = ShortenedUrl.first_or_create(:url => params[:url])
+      #@short_url = ShortenedUrl.first_or_create(:url => params[:url], :opc_url => params[:opc_url])
+      if params[:opc_url] == ""
+        @short_url = ShortenedUrl.first_or_create(:url => params[:url], :opc_url => params[:opc_url])#, :email => $email)
+      else
+        @short_opc_url = ShortenedUrl.first_or_create(:url => params[:url], :opc_url => params[:opc_url])#, :email => $email)
+      end
     rescue Exception => e
       puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
       pp @short_url
