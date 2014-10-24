@@ -8,6 +8,7 @@ gem 'sinatra-contrib'
 gem 'haml'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem 'erubis'
 
 group :production do
 	gem 'pg'
